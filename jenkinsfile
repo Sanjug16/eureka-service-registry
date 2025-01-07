@@ -12,6 +12,7 @@ pipeline {
         }
         stage('pre-Build'){
             steps {
+                bat "docker rmi -f eureka-registry"
                 bat "docker rm -f eurekaservice"
             }
         }
@@ -23,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 bat "docker build -t eureka-registry ."
-                bat "docker run -p 1761:8761 -d --name eurekaservice eureka-registry"
+                bat "docker run -p 1761:8761 -d --name eurekaservice --network my-net eureka-registry"
             }
         }
     }
