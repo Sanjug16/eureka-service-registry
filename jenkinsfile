@@ -12,7 +12,7 @@ pipeline {
         }
         stage('pre-Build'){
             steps {
-                bat "docker rm -f eureka-img"
+                bat "docker rm -f eureka-registry"
             }
         }
         stage('Build') {
@@ -22,8 +22,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat "docker build -t eureka-img ."
-                bat "docker run -p 1761:8761 -d --name eureka-registry eureka-img"
+                bat "docker build -t eureka-registry ."
+                bat "docker run -p 1761:8761 -d --name eureka-registry eureka-registry"
             }
         }
     }
